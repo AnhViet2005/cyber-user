@@ -24,7 +24,7 @@ export default function LoginPage() {
       try {
         const data = await api.get(`/Session/active/${user.customerId}`);
         if (data && data.session) {
-          router.push('/');
+          router.push('/dashboard');
         } else {
           router.push('/areas');
         }
@@ -50,7 +50,7 @@ export default function LoginPage() {
         const data = await api.get(`/Session/active/${response.user.customerId}`);
         if (data && data.session) {
           // Có phiên đang chơi → vào thẳng trang chính
-          router.push('/');
+          router.push('/dashboard');
         } else {
           // Không có phiên → chọn máy
           router.push('/areas');

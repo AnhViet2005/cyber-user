@@ -79,7 +79,7 @@ export default function AreaSelection() {
       await api.post('/Session/start', sessionData);
       
       alert(`Đã kích hoạt máy ${computer.computerName}! Chúc bạn chơi game vui vẻ.`);
-      router.push('/');
+      router.push('/dashboard');
     } catch (err) {
       console.error('Failed to start session:', err);
       alert(`Lỗi khi bắt đầu phiên chơi: ${(err as any).message || 'Vui lòng thử lại.'}`);
