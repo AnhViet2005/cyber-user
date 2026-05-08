@@ -99,8 +99,9 @@ export default function UserStationPage() {
     return (
       <div className="h-screen w-screen bg-background flex items-center justify-center p-6 relative overflow-hidden">
         <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-primary/10 blur-[150px] rounded-full"></div>
-        <div className="text-primary animate-pulse font-black text-2xl uppercase tracking-[0.2em] relative z-10">
-          Authenticating...
+        <div className="text-primary animate-pulse font-black text-2xl uppercase tracking-[0.2em] relative z-10 flex flex-col items-center gap-2">
+          <span>Authenticating...</span>
+          <span className="text-[10px] opacity-50">v1.0.5 - Cache Disabled</span>
         </div>
       </div>
     );
