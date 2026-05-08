@@ -28,13 +28,21 @@ export default function UserStationPage() {
     if (loading || !user) return;
 
     // Fetch active session for the logged in user
+    console.log('Fetching session for customerId:', user.customerId);
     api.get(`/Session/active/${user.customerId}`)
       .then(data => {
-        setSession(data.session);
-        setBasePlayedSeconds(data.playedSeconds || 0);
+        console.log('Session data received:', data);
+        if (data && data.session) {
+          setSession(data.session);
+          setBasePlayedSeconds(data.playedSeconds || 0);
+        } else {
+          console.warn('No active session found in data, redirecting to areas...');
+          router.push('/areas');
+        }
       })
       .catch(err => {
-        console.error('Failed to fetch session:', err);
+        console.error('Failed to fetch session error detail:', err);
+        // Nếu lỗi 404 (Không tìm thấy phiên) hoặc bất kỳ lỗi nào, chuyển về trang chọn máy
         router.push('/areas');
       });
 
