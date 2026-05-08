@@ -107,9 +107,12 @@ export default function UserStationPage() {
   }
 
   const handleEndSession = async () => {
+    console.log('DEBUG: Current session state:', session);
     const sId = session?.sessionId || session?.SessionId;
+    console.log('DEBUG: Resolved sId:', sId);
+    
     if (!sId) {
-      alert('Không tìm thấy ID phiên chơi!');
+      alert('Không tìm thấy ID phiên chơi! Vui lòng tải lại trang.');
       return;
     }
     if (!confirm('Bạn có chắc chắn muốn kết thúc phiên chơi không?')) return;
