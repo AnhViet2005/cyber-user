@@ -106,6 +106,17 @@ export default function UserStationPage() {
     );
   }
 
+  // Nếu đã load xong mà vẫn chưa có session, hiển thị trạng thái đang chuyển hướng
+  if (!session) {
+    return (
+      <div className="h-screen w-screen bg-background flex flex-col items-center justify-center p-6 text-center gap-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        <h2 className="text-2xl font-black">Chưa tìm thấy phiên chơi</h2>
+        <p className="text-muted">Đang chuyển bạn đến trang chọn máy...</p>
+      </div>
+    );
+  }
+
   const handleEndSession = async () => {
     console.log('DEBUG: Current session state:', session);
     const sId = session?.sessionId || session?.SessionId;
