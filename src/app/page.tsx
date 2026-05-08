@@ -31,19 +31,19 @@ export default function UserStationPage() {
     console.log('Fetching session for customerId:', user.customerId);
     api.get(`/Session/active/${user.customerId}`)
       .then(data => {
-        console.log('Session data received:', data);
+        console.log('Session data response:', data);
         if (data && data.session) {
           setSession(data.session);
           setBasePlayedSeconds(data.playedSeconds || 0);
         } else {
-          console.warn('No active session found in data, redirecting to areas...');
-          router.push('/areas');
+          console.warn('No session in response, forcing redirect to /areas');
+          window.location.href = '/areas'; // Dùng window.location để force reload nếu router.push bị kẹt
         }
       })
       .catch(err => {
-        console.error('Failed to fetch session error detail:', err);
-        // Nếu lỗi 404 (Không tìm thấy phiên) hoặc bất kỳ lỗi nào, chuyển về trang chọn máy
-        router.push('/areas');
+        console.error('Session fetch failed:', err);
+        // Nếu không có phiên chơi, bắt buộc quay lại trang chọn máy
+        window.location.href = '/areas';
       });
 
     // Fetch services
