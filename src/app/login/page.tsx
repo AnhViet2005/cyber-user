@@ -22,16 +22,14 @@ export default function LoginPage() {
     // Kiểm tra xem có phiên chơi không
     const checkSession = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const res = await fetch(`${API_BASE_URL}/Session/active/${user.customerId}`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.ok) {
+        const data = await api.get(`/Session/active/${user.customerId}`);
+        if (data && data.session) {
           router.push('/');
         } else {
           router.push('/areas');
         }
-      } catch {
+      } catch (err) {
+        console.error('Check session error:', err);
         router.push('/areas');
       }
     };
@@ -49,18 +47,16 @@ export default function LoginPage() {
 
       // Kiểm tra xem người dùng có phiên chơi đang hoạt động không
       try {
-        const activeSession = await fetch(
-          `${API_BASE_URL}/Session/active/${response.user.customerId}`,
-          { headers: { 'Authorization': `Bearer ${response.token}` } }
-        );
-        if (activeSession.ok) {
+        const data = await api.get(`/Session/active/${response.user.customerId}`);
+        if (data && data.session) {
           // Có phiên đang chơi → vào thẳng trang chính
           router.push('/');
         } else {
           // Không có phiên → chọn máy
           router.push('/areas');
         }
-      } catch {
+      } catch (err) {
+        console.error('Active session check error:', err);
         router.push('/areas');
       }
     } catch (err: any) {
