@@ -99,11 +99,15 @@ export default function UserStationPage() {
   }
 
   const handleEndSession = async () => {
-    if (!session) return;
+    const sId = session?.sessionId || session?.SessionId;
+    if (!sId) {
+      alert('Không tìm thấy ID phiên chơi!');
+      return;
+    }
     if (!confirm('Bạn có chắc chắn muốn kết thúc phiên chơi không?')) return;
 
     try {
-      await api.put(`/Session/end/${session.sessionId}`);
+      await api.put(`/Session/end/${sId}`);
       alert('Đã kết thúc phiên chơi thành công!');
       logout();
     } catch (err) {
