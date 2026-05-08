@@ -9,7 +9,11 @@ export const api = {
     return headers;
   },
   get: async (endpoint: string) => {
-    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+    // Thêm timestamp để ép trình duyệt không dùng cache
+    const separator = endpoint.includes('?') ? '&' : '?';
+    const url = `${API_BASE_URL}${endpoint}${separator}t=${new Date().getTime()}`;
+    
+    const res = await fetch(url, {
       headers: api.getHeaders(),
     });
     if (!res.ok) {
